@@ -1,25 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.TestTools;
 
 using Pong;
 
-public class BallTests
+namespace EditorTests
 {
-    private GameHandler _handler = new GameHandler();
 
-    [Test]
-    public void ShouldInitializeBall()
+    public class BallTests
     {
-        GameObject ballObj = new GameObject();
-        Rigidbody2D ball = ballObj.AddComponent<Rigidbody2D>();
+        private GameHandler _handler = new GameHandler();
 
-        _handler.InitializeBall(ball);
+        [Test]
+        public void ShouldInitializeBall()
+        {
+            GameObject ballObj = new GameObject();
+            Rigidbody2D ball = ballObj.AddComponent<Rigidbody2D>();
 
-        Assert.AreEqual(ball.transform.position, Vector3.zero);
-        Assert.AreNotEqual(ball.velocity, Vector2.zero);
+            _handler.InitializeBall(ball);
+
+            Assert.AreEqual(ball.transform.position, Vector3.zero);
+            Assert.AreNotEqual(ball.velocity, Vector2.zero);
+        }
+
     }
 
 }
