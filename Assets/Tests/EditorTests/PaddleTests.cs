@@ -24,8 +24,8 @@ public class PaddleTests
     {
         (GameObject left, GameObject right) = _handler.CreatePaddles();
 
-        Assert.AreEqual(left.transform.position.x, -9);
-        Assert.AreEqual(right.transform.position.x, 9);
+        Assert.AreEqual(left.transform.position.x, -8);
+        Assert.AreEqual(right.transform.position.x, 8);
     }
 
     [Test]

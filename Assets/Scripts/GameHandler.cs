@@ -22,10 +22,10 @@ namespace Pong
         public (GameObject, GameObject) CreatePaddles()
         {
             GameObject left = GameObject.Instantiate(PaddlePrefab);
-            left.transform.position = new Vector2(-9, 0);
+            left.transform.position = new Vector2(-8, 0);
 
             GameObject right = GameObject.Instantiate(PaddlePrefab);
-            right.transform.position = new Vector2(9, 0);
+            right.transform.position = new Vector2(8, 0);
             right.GetComponent<PaddleManager>().isLeft = false;
 
             return (left, right);
@@ -34,7 +34,7 @@ namespace Pong
         public void InitializeBall(Rigidbody2D ball)
         {
             ball.transform.position = Vector2.zero;
-            float angle = Random.Range(0, 30f) * Mathf.Deg2Rad;
+            float angle = Random.Range(0, 15f) * Mathf.Deg2Rad;
             float r = Random.Range(0f, 1f);
             if (r < 0.25f)
                 angle = 180f - angle;

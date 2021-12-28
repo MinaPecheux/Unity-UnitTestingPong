@@ -5,6 +5,8 @@ namespace Pong
 
     public class PaddleManager : MonoBehaviour
     {
+        private static float _speed = 0.25f;
+
         public bool isLeft;
 
         private KeyCode _upKey;
@@ -26,7 +28,7 @@ namespace Pong
 
         public void MoveUp()
         {
-            transform.Translate(Vector2.up * 0.15f);
+            transform.Translate(Vector2.up * _speed);
             if (transform.position.y > 4f)
             {
                 Vector3 p = transform.position;
@@ -37,7 +39,7 @@ namespace Pong
 
         public void MoveDown()
         {
-            transform.Translate(-Vector2.up * 0.15f);
+            transform.Translate(-Vector2.up * _speed);
             if (transform.position.y < -4f)
             {
                 Vector3 p = transform.position;
