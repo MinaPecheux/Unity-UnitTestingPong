@@ -6,18 +6,18 @@ using UnityEngine;
 public static class BuildScript
 {
 
-    [MenuItem("Build/Build Windows")]
-    public static void BuildWindows()
+    [MenuItem("Build/Build Mac")]
+    public static void BuildMac()
     {
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
-        buildPlayerOptions.locationPathName = "windows/" + Application.productName + ".exe";
-        buildPlayerOptions.target = BuildTarget.StandaloneWindows64;
+        buildPlayerOptions.locationPathName = "mac/" + Application.productName + ".app";
+        buildPlayerOptions.target = BuildTarget.StandaloneOSX;
         buildPlayerOptions.options = BuildOptions.None;
         buildPlayerOptions.scenes = GetScenes();
 
-        Debug.Log("Building StandaloneWindows64");
+        Debug.Log("Building StandaloneOSX");
         BuildPipeline.BuildPlayer(buildPlayerOptions);
-        Debug.Log("Built StandaloneWindows64");
+        Debug.Log("Built StandaloneOSX");
     }
 
     private static string[] GetScenes()

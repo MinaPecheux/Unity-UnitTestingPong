@@ -1,19 +1,20 @@
 workflows:
-  unity-windows-workflow:
-      name: Unity Windows Workflow
+  unity-mac-workflow:
+      name: Unity Mac Workflow
+      instance_type: mac_mini
       max_build_duration: 120
       environment:
         vars:
-          UNITY_HOME: C:\Program Files\Unity\Hub\Editor\2020.3.23f1\Editor
+          UNITY_HOME: /Applications/Unity/Hub/Editor/2020.3.20f1/Unity.app
         groups:
           - unity
       scripts:
         - name: Run Unit Tests
           script: | 
-            python3 run_unit_tests.py windows
-        - name: Build Windows
+            python3 run_unit_tests.py mac
+        - name: Build Mac
           script: | 
-            python3 export_unity.py windows
+            python3 export_unity.py mac
       artifacts:
-        - windows/UnitTestingPong.exe
+        - mac/UnitTestingPong.exe
         - Logs/unity_build_*.log
