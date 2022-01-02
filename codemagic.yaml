@@ -1,11 +1,9 @@
 workflows:
   unity-mac-workflow:
       name: Unity Mac Workflow
-      instance_type: mac_mini
+      instance_type: mac_pro
       max_build_duration: 120
       environment:
-        vars:
-          UNITY_HOME: /Applications/Unity/Hub/Editor/2020.3.20f1/Unity.app
         groups:
           - unity
       scripts:
@@ -16,5 +14,5 @@ workflows:
           script: | 
             python3 export_unity.py mac
       artifacts:
-        - mac/UnitTestingPong.exe
+        - "mac/UnitTestingPong.app"
         - Logs/unity_build_*.log
