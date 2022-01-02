@@ -3,6 +3,8 @@ workflows:
       name: Unity Windows Workflow
       max_build_duration: 120
       environment:
+        vars:
+          UNITY_HOME: C:\Program Files\Unity\Hub\Editor\2020.3.23f1\Editor
         groups:
           - unity
       scripts:
