@@ -1,0 +1,17 @@
+workflows:
+  unity-windows-workflow:
+      name: Unity Windows Workflow
+      max_build_duration: 120
+      environment:
+        groups:
+          - unity
+      scripts:
+        - name: Run Unit Tests
+          script: | 
+            python3 run_unit_tests.py windows
+        - name: Build Windows
+          script: | 
+            python3 export_unity.py windows
+      artifacts:
+        - windows/UnitTestingPong.exe
+        - Logs/unity_build_*.log
