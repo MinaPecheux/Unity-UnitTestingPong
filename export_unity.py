@@ -8,7 +8,7 @@ if len(sys.argv) >= 2:
     print(f'APP_TYPE set to: {APP_TYPE}')
 else:
     print('APP_TYPE not set. End process.')
-    sys.exit()
+    sys.exit(1)
 
 # Check that environment variables have been set
 vars = {'UNITY_HOME' : None, 'UNITY_SERIAL': None, 'UNITY_USERNAME' : None, 'UNITY_PASSWORD': None}
@@ -17,7 +17,7 @@ for key,value in vars.items():
         vars[key] = os.getenv(key)
     else:
         print(f'{key} is not set. End process.')
-        sys.exit()   
+        sys.exit(1)   
 
 # Set location of Unity binary according to machine type
 platform = platform.system()
@@ -29,14 +29,14 @@ elif platform == 'Windows':
     LOG_DIR = '\\Logs\\'
 elif platform == "Linux":
     print("Build for Linux on Mac or Windows. End Process.")
-    sys.exit()
+    sys.exit(1)
 
 # Check that UNITY_BIN has been set
 if UNITY_BIN is not None:
     print('UNITY_BIN set to: ' + UNITY_BIN)
 else:
     print('UNITY_BIN does not exist. End process.')
-    sys.exit()
+    sys.exit(1)
 
 # Set log file locations
 UNITY_PROJECT_PATH = os.getcwd()
