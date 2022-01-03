@@ -11,7 +11,7 @@ else:
     sys.exit(1)
 
 # Check that environment variables have been set
-vars = {'UNITY_HOME' : None}
+vars = {'UNITY_HOME' : None, 'UNITY_SERIAL': None, 'UNITY_USERNAME' : None, 'UNITY_PASSWORD': None}
 for key,value in vars.items():
     if key in os.environ:
         vars[key] = os.getenv(key)
@@ -43,6 +43,7 @@ UNITY_PROJECT_PATH = os.getcwd()
 LOG_PATH = f'{UNITY_PROJECT_PATH}{LOG_DIR}'
 UNITY_LOG_FILE_PLATFORM = f'{LOG_PATH}unity_unit_test_{APP_TYPE}.log'
 UNIT_TEST_FILE_PATH = f'{UNITY_PROJECT_PATH}/tests.xml'
+UNITY_LOG_FILE_LICENSE = f'{LOG_PATH}unity_license.log'
 
 def runTests(appType, unityBin, projectPath, testFilePath, logPath):
     print(f'UNITY START UNIT TESTS {appType}')
@@ -50,7 +51,19 @@ def runTests(appType, unityBin, projectPath, testFilePath, logPath):
     print(f'UNITY END UNIT TESTS {appType} (exit code: {exitCode})')
     return 0 if exitCode == 0 else 1
 
+def activateLicense(unityBin, logPath, unitySerial, unityUsername, unityPassword):
+    print('UNITY LICENSE START')
+    os.system(f'"{unityBin}" -quit -batchmode -skipBundles -logFile {logPath} -serial {unitySerial} -username {unityUsername} -password {unityPassword}')
+    print('UNITY LICENSE END')
+
+def returnLicense(unityBin):
+    print('UNITY RETURN LICENSE START')
+    os.system(f'"{unityBin}" -quit -batchmode -returnlicense -nographics')
+    print('UNITY RETURN LICENSE END')
+
+activateLicense(UNITY_BIN, UNITY_LOG_FILE_LICENSE, vars["UNITY_SERIAL"],vars["UNITY_USERNAME"],vars["UNITY_PASSWORD"])
 testsExitCode = runTests(APP_TYPE.upper(), UNITY_BIN, UNITY_PROJECT_PATH, UNIT_TEST_FILE_PATH, UNITY_LOG_FILE_PLATFORM)
+returnLicense(UNITY_BIN)
 
 print('UNIT TESTS DONE')
 sys.exit(testsExitCode)
