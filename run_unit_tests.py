@@ -69,5 +69,6 @@ runTests(APP_TYPE.upper(), UNITY_BIN, UNITY_PROJECT_PATH, UNIT_TEST_FILE_PATH, U
 testsExitCode = checkTests(UNIT_TEST_FILE_PATH)
 
 print('UNIT TESTS DONE')
-os.remove(UNIT_TEST_FILE_PATH)
+if os.path.exists(UNIT_TEST_FILE_PATH):
+    os.remove(UNIT_TEST_FILE_PATH)
 sys.exit(testsExitCode)

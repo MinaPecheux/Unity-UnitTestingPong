@@ -9,6 +9,7 @@ workflows:
         - name: Run Unit Tests
           script: | 
             python3 run_unit_tests.py mac
+          test_report: tests.xml
         - name: Build Mac
           script: | 
             python3 export_unity.py mac
