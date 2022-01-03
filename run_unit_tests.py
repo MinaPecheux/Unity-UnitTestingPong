@@ -46,7 +46,7 @@ UNIT_TEST_FILE_PATH = f'{UNITY_PROJECT_PATH}/tests.xml'
 
 def runTests(appType, unityBin, projectPath, testFilePath, logPath):
     print(f'UNITY START UNIT TESTS {appType}')
-    exitCode = os.system(f'"{unityBin}" -batchmode -projectPath "{projectPath}" -nographics -logFile "{logPath}" -executeMethod Runner.RunUnitTests -testsOutput "{testFilePath}"')
+    exitCode = os.system(f'"{unityBin}" -batchmode -projectPath "{projectPath}" -nographics -executeMethod Runner.RunUnitTests -testsOutput "{testFilePath}"')
     print(f'UNITY END UNIT TESTS {appType} (exit code: {exitCode})')
     return 0 if exitCode == 0 else 1
 
