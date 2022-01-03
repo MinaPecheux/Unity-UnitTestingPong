@@ -47,8 +47,10 @@ UNIT_TEST_FILE_PATH = f'{UNITY_PROJECT_PATH}/tests.xml'
 
 def runTests(appType, unityBin, projectPath, testFilePath, logPath):
     print(f'UNITY START UNIT TESTS {appType}')
-    os.system(f'"{unityBin}" -batchmode -projectPath {projectPath} -nographics -runTests -testResults {testFilePath} -logFile {logPath}')
-    print(f'UNITY END UNIT TESTS {appType}')
+    c = f'"{unityBin}" -batchmode -projectPath "{projectPath}" -nographics -runTests -testResults "{testFilePath}" -logFile "{logPath}" -testPlatform editmode'
+    print('running command: ' + c)
+    exitCode = os.system(c)
+    print(f'UNITY END UNIT TESTS {appType} (exit code: {exitCode})')
 
 def checkTests(testFilePath):
     if not os.path.exists(testFilePath):
