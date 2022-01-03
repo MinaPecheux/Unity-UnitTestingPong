@@ -1,7 +1,6 @@
 import os
 import platform
 import sys
-import xml.etree.ElementTree as ET
 
 # Check if the app type argument has been provided, e.g python3 export_unity.py windows | ios | android
 if len(sys.argv) >= 2:
@@ -47,30 +46,11 @@ UNIT_TEST_FILE_PATH = f'{UNITY_PROJECT_PATH}/tests.xml'
 
 def runTests(appType, unityBin, projectPath, testFilePath, logPath):
     print(f'UNITY START UNIT TESTS {appType}')
-    c = f'"{unityBin}" -batchmode -projectPath "{projectPath}" -nographics -runTests -testResults "{testFilePath}" -logFile "{logPath}" -testPlatform editmode'
-    print('running command: ' + c)
-    exitCode = os.system(c)
+    exitCode = os.system(f'"{unityBin}" -batchmode -projectPath "{projectPath}" -nographics -logFile "{logPath}" -executeMethod Runner.RunUnitTests -testsOutput "{testFilePath}"')
     print(f'UNITY END UNIT TESTS {appType} (exit code: {exitCode})')
+    return 0 if exitCode == 0 else 1
 
-def checkTests(testFilePath):
-    if not os.path.exists(testFilePath):
-        print(f'Could not find unit tests results!')
-        return 1
-
-    tree = ET.parse(testFilePath)
-    root = tree.getroot()
-    hasPassed = root.attrib['result'] == 'Passed'
-    if hasPassed:
-        print(f'Tests succeeded :(')
-        return 0
-    else:
-        print(f'Tests failed :(')
-        return 1
-
-runTests(APP_TYPE.upper(), UNITY_BIN, UNITY_PROJECT_PATH, UNIT_TEST_FILE_PATH, UNITY_LOG_FILE_PLATFORM)
-testsExitCode = checkTests(UNIT_TEST_FILE_PATH)
+testsExitCode = runTests(APP_TYPE.upper(), UNITY_BIN, UNITY_PROJECT_PATH, UNIT_TEST_FILE_PATH, UNITY_LOG_FILE_PLATFORM)
 
 print('UNIT TESTS DONE')
-if os.path.exists(UNIT_TEST_FILE_PATH):
-    os.remove(UNIT_TEST_FILE_PATH)
 sys.exit(testsExitCode)
