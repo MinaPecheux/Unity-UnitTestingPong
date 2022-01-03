@@ -47,7 +47,7 @@ UNITY_LOG_FILE_LICENSE = f'{LOG_PATH}unity_license.log'
 
 def runTests(appType, unityBin, projectPath, testFilePath, logPath):
     print(f'UNITY START UNIT TESTS {appType}')
-    exitCode = os.system(f'"{unityBin}" -batchmode -projectPath "{projectPath}" -nographics -executeMethod Runner.RunUnitTests -testsOutput "{testFilePath}"')
+    exitCode = os.system(f'"{unityBin}" -batchmode -projectPath "{projectPath}" -nographics -logFile {logPath} -executeMethod Runner.RunUnitTests -testsOutput "{testFilePath}"')
     print(f'UNITY END UNIT TESTS {appType} (exit code: {exitCode})')
     return 0 if exitCode == 0 else 1
 
