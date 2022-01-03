@@ -42,12 +42,11 @@ else:
 UNITY_PROJECT_PATH = os.getcwd()
 LOG_PATH = f'{UNITY_PROJECT_PATH}{LOG_DIR}'
 UNITY_LOG_FILE_PLATFORM = f'{LOG_PATH}unity_unit_test_{APP_TYPE}.log'
-UNIT_TEST_FILE_PATH = f'{UNITY_PROJECT_PATH}/tests.xml'
 UNITY_LOG_FILE_LICENSE = f'{LOG_PATH}unity_license.log'
 
-def runTests(appType, unityBin, projectPath, testFilePath, logPath):
+def runTests(appType, unityBin, projectPath, logPath):
     print(f'UNITY START UNIT TESTS {appType}')
-    exitCode = os.system(f'"{unityBin}" -batchmode -projectPath "{projectPath}" -nographics -logFile {logPath} -executeMethod Runner.RunUnitTests -testsOutput "{testFilePath}"')
+    exitCode = os.system(f'"{unityBin}" -batchmode -projectPath "{projectPath}" -nographics -logFile {logPath} -executeMethod Runner.RunUnitTests')
     print(f'UNITY END UNIT TESTS {appType} (exit code: {exitCode})')
     return 0 if exitCode == 0 else 1
 
@@ -62,7 +61,7 @@ def returnLicense(unityBin):
     print('UNITY RETURN LICENSE END')
 
 activateLicense(UNITY_BIN, UNITY_LOG_FILE_LICENSE, vars["UNITY_SERIAL"],vars["UNITY_USERNAME"],vars["UNITY_PASSWORD"])
-testsExitCode = runTests(APP_TYPE.upper(), UNITY_BIN, UNITY_PROJECT_PATH, UNIT_TEST_FILE_PATH, UNITY_LOG_FILE_PLATFORM)
+testsExitCode = runTests(APP_TYPE.upper(), UNITY_BIN, UNITY_PROJECT_PATH, UNITY_LOG_FILE_PLATFORM)
 returnLicense(UNITY_BIN)
 
 print('UNIT TESTS DONE')

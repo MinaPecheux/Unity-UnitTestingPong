@@ -15,22 +15,6 @@ public static class Runner
 
         public void RunFinished(ITestResultAdaptor result)
         {
-            string reportPath = "tests.xml";
-            string[] args = System.Environment.GetCommandLineArgs();
-            for (int i = 0; i < args.Length; i++)
-            {
-                if (args[i] == "-testsOutput")
-                {
-                    reportPath = args[i + 1];
-                    break;
-                }
-            }
-
-            NUnit.Framework.Interfaces.TNode xml = result.ToXml();
-            XmlWriter writer = XmlWriter.Create(reportPath);
-            xml.WriteTo(writer);
-            writer.Flush();
-
             _runner.UnregisterCallbacks(this);
             if (result.ResultState != "Passed")
             {
