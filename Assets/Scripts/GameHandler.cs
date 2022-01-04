@@ -41,7 +41,7 @@ namespace Pong
             else if (r < 0.5f)
                 angle += 180f;
             else if (r < 0.75f)
-                angle += 360f - angle;
+                angle = 360f - angle;
             float strength = 10f;
             ball.velocity = new Vector2(
                 strength * Mathf.Cos(angle),

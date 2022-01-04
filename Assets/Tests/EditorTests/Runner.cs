@@ -1,4 +1,3 @@
-using System.Xml;
 using UnityEditor;
 using UnityEditor.TestTools.TestRunner.Api;
 using UnityEngine;
