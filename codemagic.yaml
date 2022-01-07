@@ -19,32 +19,8 @@ workflows:
           script: $UNITY_BIN -batchmode -quit -logFile -projectPath . -executeMethod BuildScript.$BUILD_SCRIPT -nographics
           on_failure: publish
       artifacts:
-        - "Build/UnitTestingPong.app"
+        - "mac/UnitTestingPong.app"
       publishing:
         scripts:
           - name: Deactivate License
             script: $UNITY_BIN -batchmode -quit -returnlicense -nographics
-
-  unity-windows-workflow:
-      name: Unity Windows Workflow
-      instance_type: windows_x2 # This instance type is available to all teams with enabled billing
-      environment:
-        groups:
-          # Add the group environment variables in Codemagic UI (either in Application/Team variables) - https://docs.codemagic.io/variables/environment-variable-groups/
-          - unity # <-- (Includes UNITY_SERIAL, UNITY_USERNAME, UNITY_PASSWORD)
-        vars:
-          UNITY_BIN: C:\Program Files\Unity\Hub\Editor\2020.3.23f1\Editor\Unity.exe
-          BUILD_SCRIPT: BuildWindows
-      scripts:
-        - name: Activate License
-          script: "& $Env:UNITY_BIN -batchmode -quit -logFile -serial $Env:UNITY_SERIAL -username $Env:UNITY_USERNAME -password $Env:UNITY_PASSWORD"
-        - name: Run Unit Tests
-          script: "& $Env:UNITY_BIN -batchmode -executeMethod Runner.RunUnitTests -logFile -nographics -projectPath ."
-        - name: Build
-          script: "& $Env:UNITY_BIN -batchmode -quit -logFile -projectPath . -executeMethod BuildScript.$BUILD_SCRIPT -nographics"
-      artifacts:
-        - "Build/UnitTestingPong.exe"
-      publishing:
-        scripts:
-          - name: Deactivate License
-            script: "& $Env:UNITY_BIN -batchmode -quit -returnlicense -nographics"
