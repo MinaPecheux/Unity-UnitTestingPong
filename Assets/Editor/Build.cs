@@ -9,7 +9,7 @@ public static class BuildScript
     public static void BuildMac()
     {
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
-        buildPlayerOptions.locationPathName = "Build/" + Application.productName + ".app";
+        buildPlayerOptions.locationPathName = "mac/" + Application.productName + ".app";
         buildPlayerOptions.target = BuildTarget.StandaloneOSX;
         buildPlayerOptions.options = BuildOptions.None;
         buildPlayerOptions.scenes = GetScenes();
