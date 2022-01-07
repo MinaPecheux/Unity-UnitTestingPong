@@ -35,14 +35,14 @@ workflows:
           BUILD_SCRIPT: BuildWindows
       scripts:
         - name: Activate License
-          script: $Env:UNITY_BIN -batchmode -quit -logFile -serial $Env:UNITY_SERIAL -username $Env:UNITY_USERNAME -password $Env:UNITY_PASSWORD
+          script: & $Env:UNITY_BIN -batchmode -quit -logFile -serial $Env:UNITY_SERIAL -username $Env:UNITY_USERNAME -password $Env:UNITY_PASSWORD
         - name: Run Unit Tests
-          script: $Env:UNITY_BIN -batchmode -executeMethod Runner.RunUnitTests -logFile -nographics -projectPath .
+          script: & $Env:UNITY_BIN -batchmode -executeMethod Runner.RunUnitTests -logFile -nographics -projectPath .
         - name: Build
-          script: $Env:UNITY_BIN -batchmode -quit -logFile -projectPath . -executeMethod BuildScript.$BUILD_SCRIPT -nographics
+          script: & $Env:UNITY_BIN -batchmode -quit -logFile -projectPath . -executeMethod BuildScript.$BUILD_SCRIPT -nographics
       artifacts:
         - "Build/UnitTestingPong.exe"
       publishing:
         scripts:
           - name: Deactivate License
-            script: $Env:UNITY_BIN -batchmode -quit -returnlicense -nographics
+            script: & $Env:UNITY_BIN -batchmode -quit -returnlicense -nographics
