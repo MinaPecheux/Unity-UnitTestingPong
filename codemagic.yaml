@@ -8,7 +8,6 @@ workflows:
           - unity # <-- (Includes UNITY_SERIAL, UNITY_USERNAME, UNITY_PASSWORD)
         vars:
           UNITY_BIN: /Applications/Unity/Hub/Editor/2020.3.20f1/Unity.app/Contents/MacOS/Unity
-          BUILD_SCRIPT: BuildMac
       scripts:
         - name: Activate License
           script: $UNITY_BIN -batchmode -quit -logFile -serial ${UNITY_SERIAL?} -username ${UNITY_USERNAME?} -password ${UNITY_PASSWORD?}
@@ -16,7 +15,7 @@ workflows:
           script: $UNITY_BIN -batchmode -executeMethod Runner.RunUnitTests -logFile -nographics -projectPath .
           on_failure: publish
         - name: Build
-          script: $UNITY_BIN -batchmode -quit -logFile -projectPath . -executeMethod BuildScript.$BUILD_SCRIPT -nographics
+          script: $UNITY_BIN -batchmode -quit -logFile -projectPath . -executeMethod BuildScript.BuildMac -nographics
           on_failure: publish
       artifacts:
         - "mac/UnitTestingPong.app"
