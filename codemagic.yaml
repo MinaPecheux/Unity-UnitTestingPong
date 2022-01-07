@@ -1,17 +1,23 @@
 workflows:
   unity-mac-workflow:
+      # Building Unity on macOS requires special instance type which is available upon request
       name: Unity Mac Workflow
-      max_build_duration: 120
       environment:
         groups:
-          - unity
+          # Add the group environment variables in Codemagic UI (either in Application/Team variables) - https://docs.codemagic.io/variables/environment-variable-groups/
+          - unity # <-- (Includes UNITY_SERIAL, UNITY_USERNAME, UNITY_PASSWORD)
+        vars:
+          UNITY_BIN: /Applications/Unity/Hub/Editor/2020.3.20f1/Unity.app/Contents/MacOS/Unity
       scripts:
+        - name: Activate License
+          script: $UNITY_BIN -batchmode -quit -logFile -serial ${UNITY_SERIAL?} -username ${UNITY_USERNAME?} -password ${UNITY_PASSWORD?}
         - name: Run Unit Tests
-          script: | 
-            python3 run_unit_tests.py mac
-        - name: Build Mac
-          script: | 
-            python3 export_unity.py mac
+          script: $UNITY_BIN -batchmode -executeMethod Runner.RunUnitTests -logFile -nographics -projectPath .
+        - name: Build
+          script: $UNITY_BIN -batchmode -quit -logFile -projectPath . -executeMethod BuildScript.BuildMac -nographics
       artifacts:
         - "mac/UnitTestingPong.app"
-        - Logs/unity_build_*.log
+      publishing:
+        scripts:
+          - name: Deactivate License
+            script: $UNITY_BIN -batchmode -quit -returnlicense -nographics
