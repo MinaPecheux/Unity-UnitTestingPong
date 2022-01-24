@@ -14,6 +14,23 @@ public static class Runner
 
         public void RunFinished(ITestResultAdaptor result)
         {
+            // export test results to JUnit XML format if
+            // using -testsOutput argument
+            string reportPath = null;
+            string[] args = System.Environment.GetCommandLineArgs();
+            for (int i = 0; i < args.Length; i++)
+            {
+                if (args[i] == "-testsOutput")
+                {
+                    reportPath = args[i + 1];
+                    break;
+                }
+            }
+
+            if (reportPath != null) {
+                Reporter.ReportJUnitXML(reportPath, result);
+            }
+
             _runner.UnregisterCallbacks(this);
             if (result.ResultState != "Passed")
             {
