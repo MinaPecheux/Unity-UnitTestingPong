@@ -19,6 +19,7 @@ workflows:
           script: $UNITY_BIN -batchmode -quit -logFile -projectPath . -executeMethod BuildScript.BuildMac -nographics
       artifacts:
         - "mac/UnitTestingPong.app"
+        - ${TEST_REPORT_PATH}
       publishing:
         scripts:
           - name: Deactivate License
