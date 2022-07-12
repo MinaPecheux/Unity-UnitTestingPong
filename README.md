@@ -2,6 +2,8 @@
 
 **Mina Pêcheux - January 2022**
 
+![Codemagic build status](https://api.codemagic.io/apps/61cb1c4edef860000f2904a7/unity-mac-workflow/status_badge.svg)
+
 Unit testing is a fundamental step in any automation process because it allows you to programmatically check if the features work properly, and it avoids code regressions! But it's not used that often by game developers, despite its benefits in terms of code quality, robustness and maintenance...
 
 So, for example, how can we do unit testing in Unity for a basic game like Pong?

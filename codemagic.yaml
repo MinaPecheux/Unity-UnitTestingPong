@@ -7,7 +7,7 @@ workflows:
           # Add the group environment variables in Codemagic UI (either in Application/Team variables) - https://docs.codemagic.io/variables/environment-variable-groups/
           - unity # <-- (Includes UNITY_SERIAL, UNITY_USERNAME, UNITY_PASSWORD)
         vars:
-          UNITY_BIN: /Applications/Unity/Hub/Editor/2020.3.20f1/Unity.app/Contents/MacOS/Unity
+          UNITY_BIN: $UNITY_HOME/Contents/MacOS/Unity
           TEST_REPORT_PATH: tests.xml
       scripts:
         - name: Activate License
